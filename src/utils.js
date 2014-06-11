@@ -1,7 +1,3 @@
-Number.prototype.clamp = function (min, max) {
-    return this<min?min:this>max?max:this;
-};
-
 loadSync = function (url) {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", url, false);
@@ -26,10 +22,28 @@ List = function () {
 // TODO: Consider implementing multiple parameter functionality or an array of elements as a parameter.
 List.prototype.add = function (element) {
 	if (element) {
-		this.tail = this.tail ? this.tail.next = {e: element} : this.head = {e: element};
+		this.tail = this.tail ? this.tail.next = { e: element } : this.head = { e: element };
 		this.size++;
 	}
 	return this;
+};
+
+List.prototype.push = function (element) {
+	if (element) {
+		this.head = this.head ? { e: element, next: this.head } : this.tail = { e: element };
+		this.size++;
+	}
+	return this;
+};
+
+// TODO: Think more about Stack implementation (relative to tail vs. head).
+List.prototype.poll = List.prototype.pop = function () {
+	var element = this.head ? this.head.e : undefined;
+	if (element) {
+		this.head = this.head === this.tail ? this.tail = undefined : this.head.next;
+		this.size--;
+	}
+	return element;
 };
 
 List.prototype.remove = function (element) {
@@ -52,13 +66,4 @@ List.prototype.remove = function (element) {
 		}
 	}
 	return false;
-};
-
-List.prototype.poll = function () {
-	var element = this.head ? this.head.e : undefined;
-	if (element) {
-		this.head = this.head === this.tail ? this.tail = undefined : this.head.next;
-		this.size--;
-	}
-	return element;
 };

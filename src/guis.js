@@ -77,6 +77,7 @@ CONQUEST.GUIBuildBar = function (x, y, width, height, parent, scene) {
 	
 	this.children.push(new CONQUEST.GUIBuildButton(20, 20, 39, 39, this, scene, CONQUEST.Tree));
 	this.children.push(new CONQUEST.GUIBuildButton(80, 20, 39, 39, this, scene, CONQUEST.Barrel));
+	this.children.push(new CONQUEST.GUIBuildButton(140, 20, 39, 39, this, scene, CONQUEST.House));
 };
 
 CONQUEST.GUIBuildBar.prototype = Object.create(GUIElement.prototype);
@@ -106,7 +107,7 @@ CONQUEST.GUIBuildBar.prototype.render = function (ctx) {
 	if (this.scene.player.selectedBuilding) {
 		var sprite = this.scene.player.selectedBuilding.prototype.sprite;
 		ctx.globalAlpha = 0.6;
-		ctx.drawImage(sprite.sheet, sprite.x, sprite.y, sprite.w, sprite.h, this.mouseX-this.x-16, this.mouseY-this.y-16, 32, 32);
+		ctx.drawImage(sprite.sheet, sprite.x, sprite.y, sprite.w, sprite.h, this.mouseX-this.x-16, this.mouseY-this.y-32, 32, 32);
 	}
 };
 
